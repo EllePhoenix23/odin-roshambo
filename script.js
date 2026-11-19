@@ -41,38 +41,47 @@ do {
         if (computerSelection === "rock" && humanSelection === "paper") {
             console.log("You win! Paper covers rock!");
             humanScore++;
+            gamesPlayed++;
         } else if (computerSelection === "paper" && humanSelection === "scissors") {
             console.log("You win! Scissors cuts paper!");
             humanScore++;
+            gamesPlayed++;
         } else if (computerSelection === "scissors" && humanSelection === "rock") {
             console.log("You win! Rock smashes scissors!");
             humanScore++;
+            gamesPlayed++;
         } else if (computerSelection === "rock" && humanSelection === "scissors") {
             console.log("You lose! Rock smashes scissors!");
             computerScore++;
+            gamesPlayed++;
         } else if (computerSelection === "paper" && humanSelection === "rock") {
             console.log("You lose! Paper covers rock!");
             computerScore++;
+            gamesPlayed++;
         } else if (computerSelection === "scissors" && humanSelection === "paper") {
             console.log("You lose! Scissors cuts paper!");
             computerScore++;
+            gamesPlayed++;
         } else if (computerSelection === "rock" && humanSelection === "rock") {
             console.log("It's a draw! We both chose rock!");
+            gamesPlayed++;
         } else if (computerSelection === "paper" && humanSelection === "paper") {
             console.log("It's a draw! We both chose paper!");
+            gamesPlayed++;
         } else if (computerSelection === "scissors" && humanSelection === "scissors") {
             console.log("It's a draw! We both chose scissors!");
+            gamesPlayed++;
         } else {
             console.log("Oh no! I don't understand what you mean, please try again!");
         }
     }
 
     console.log(playRound(computerSelection, humanSelection));
-    
-    gamesPlayed++;
 
     function checkScore(gamesPlayed) {
-        if (gamesPlayed === 1) {
+        if (gamesPlayed < 1) {
+            // Intentionally blank
+        } else if (gamesPlayed === 1) {
              console.log("Let's check the score! You've won " + humanScore + " out of " + gamesPlayed + " game. I've won " + computerScore + " out of " + gamesPlayed + " game. Let's keep going!");
         } else if (gamesPlayed > 1 && gamesPlayed < 5) {
              console.log("Let's check the score! You've won " + humanScore + " out of " + gamesPlayed + " games. I've won " + computerScore + " out of " + gamesPlayed + " games. Let's keep going!");

@@ -68,5 +68,30 @@ do {
     }
 
     console.log(playRound(computerSelection, humanSelection));
+    
     gamesPlayed++;
+
+    function checkScore(gamesPlayed) {
+        if (gamesPlayed === 1) {
+             console.log("Let's check the score! You've won " + humanScore + " out of " + gamesPlayed + " game. I've won " + computerScore + " out of " + gamesPlayed + " game. Let's keep going!");
+        } else if (gamesPlayed > 1 && gamesPlayed < 5) {
+             console.log("Let's check the score! You've won " + humanScore + " out of " + gamesPlayed + " games. I've won " + computerScore + " out of " + gamesPlayed + " games. Let's keep going!");
+        } else {
+            // Intentionally blank
+        }
+    }
+    console.log(checkScore(gamesPlayed));
+
 } while (gamesPlayed < 5);
+
+function declareWinner(computerScore, humanScore) {
+    if (computerScore < humanScore) {
+        console.log("You're the winner! You won " + humanScore + " out of " + gamesPlayed + " games! I won " + computerScore + " out of " + gamesPlayed + " games. Thanks for playing!");
+    } else if (computerScore > humanScore) {
+        console.log("You lost! You won " + humanScore + " out of " + gamesPlayed + " games! I won " + computerScore + " out of " + gamesPlayed + " games. Better luck next time!");
+    } else {
+        console.log("Wow! We both won " + humanScore + " out of " + gamesPlayed + " games!")
+    }
+}
+console.log(declareWinner(computerScore, humanScore));
+console.log("Refresh the page to play again!");

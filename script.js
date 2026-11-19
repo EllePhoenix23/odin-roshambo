@@ -35,16 +35,22 @@ function getHumanChoice(humanChoice) {
 function playRound(computerChoice, humanChoice) {
     if (computerChoice === choice1 && humanChoice === choice2) {
         console.log("You win! Paper covers rock!");
+        humanScore++;
     } else if (computerChoice === choice2 && humanChoice === choice3) {
         console.log("You win! Scissors cuts paper!");
+        humanScore++;
     } else if (computerChoice === choice3 && humanChoice === choice1) {
         console.log("You win! Rock smashes scissors!");
+        humanScore++;
     } else if (computerChoice === choice1 && humanChoice === choice3) {
         console.log("You lose! Rock smashes scissors!");
+        computerScore++;
     } else if (computerChoice === choice2 && humanChoice === choice1) {
         console.log("You lose! Paper covers rock!");
+        computerScore++;
     } else if (computerChoice === choice3 && humanChoice === choice2) {
         console.log("You lose! Scissors cuts paper!");
+        computerScore++;
     } else if (computerChoice === choice1 && humanChoice === choice1) {
         console.log("It's a draw! We both chose rock!");
     } else if (computerChoice === choice2 && humanChoice === choice2) {

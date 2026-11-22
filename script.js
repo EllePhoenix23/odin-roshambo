@@ -1,3 +1,5 @@
+// 1 = rock; 2 = paper; 3 = scissors
+
 let computerScore = 0;
 let humanScore = 0;
 let gamesPlayed = 0;
@@ -10,76 +12,62 @@ paperBtn.textContent = "Paper";
 const scissorsBtn = document.createElement("button");
 scissorsBtn.textContent = "Scissors";
 
-const humanResponse = prompt("Rock, paper, scissors, shoot!");
+const result = document.createElement("div");
+
+
+const computerSelection = Math.floor(Math.random() * 3) + 1;
+const humanSelection = document.querySelector("button");
+humanSelection.addEventListener("click", () => {
     
-    // Computer choice
-let computerChoice = Math.floor(Math.random() * 3) + 1;
-
-function getComputerChoice(computerChoice) {
-    if (computerChoice === 1) {
-            return "rock";
-    } else if (computerChoice === 2) {
-            return "paper";
-    } else if (computerChoice === 3) {
-            return "scissors";
+    if (rockBtn) {
+        return 1;
     }
-}
-
-const computerSelection = getComputerChoice(computerChoice);
-
-// User choice
-const humanChoice = humanResponse.toLowerCase();
-
-function getHumanChoice(humanChoice) {
-    if (humanChoice === "rock") {
-        return "rock";
-    } else if (humanChoice === "paper") {
-        return "paper";
-    } else if (humanChoice === "scissors") {
-        return "scissors";
+    if (paperBtn) {
+        return 2;
     }
-}
+    if (scissorsBtn) {
+        return 3;
+    }
 
-const humanSelection = getHumanChoice(humanChoice);
-
-// Round
+    playRound();
+});
 
 function playRound(computerSelection, humanSelection) {
-    if (computerSelection === "rock" && humanSelection === "paper") {
-        console.log("You win! Paper covers rock!");
+    if (computerSelection === 1 && humanSelection === 2) {
+        result.textContent = "You win! Paper covers rock!";
         humanScore++;
         gamesPlayed++;
-    } else if (computerSelection === "paper" && humanSelection === "scissors") {
-        console.log("You win! Scissors cuts paper!");
+    } else if (computerSelection === 2 && humanSelection === 3) {
+        result.textContent = "You win! Scissors cuts paper!";
         humanScore++;
         gamesPlayed++;
-    } else if (computerSelection === "scissors" && humanSelection === "rock") {
-        console.log("You win! Rock smashes scissors!");
+    } else if (computerSelection === 3 && humanSelection === 1) {
+        result.textContent = "You win! Rock smashes scissors!";
         humanScore++;
         gamesPlayed++;
-    } else if (computerSelection === "rock" && humanSelection === "scissors") {
-        console.log("You lose! Rock smashes scissors!");
+    } else if (computerSelection === 1 && humanSelection === 3) {
+        result.textContent = "You lose! Rock smashes scissors!";
         computerScore++;
         gamesPlayed++;
-    } else if (computerSelection === "paper" && humanSelection === "rock") {
-        console.log("You lose! Paper covers rock!");
+    } else if (computerSelection === 2 && humanSelection === 1) {
+        result.textContent = "You lose! Paper covers rock!";
         computerScore++;
         gamesPlayed++;
-    } else if (computerSelection === "scissors" && humanSelection === "paper") {
-        console.log("You lose! Scissors cuts paper!");
+    } else if (computerSelection === 3 && humanSelection === 2) {
+        result.textContent = "You lose! Scissors cuts paper!";
         computerScore++;
         gamesPlayed++;
-    } else if (computerSelection === "rock" && humanSelection === "rock") {
-        console.log("It's a draw! We both chose rock!");
+    } else if (computerSelection === 1 && humanSelection === 1) {
+        result.textContent = "It's a draw! We both chose rock!"
         gamesPlayed++;
-    } else if (computerSelection === "paper" && humanSelection === "paper") {
-        console.log("It's a draw! We both chose paper!");
+    } else if (computerSelection === 2 && humanSelection === 2) {
+        result.textContent = "It's a draw! We both chose paper!";
         gamesPlayed++;
-    } else if (computerSelection === "scissors" && humanSelection === "scissors") {
-        console.log("It's a draw! We both chose scissors!");
+    } else if (computerSelection === 3 && humanSelection === 3) {
+        result.textContent = "It's a draw! We both chose scissors!";
         gamesPlayed++;
     } else {
-        console.log("Oh no! I don't understand what you mean, please try again!");
+        result.textContent = "ERROR";
     }
 }
 

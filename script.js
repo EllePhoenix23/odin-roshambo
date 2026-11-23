@@ -1,5 +1,6 @@
 let computerScore = 0;
 let humanScore = 0;
+let winScore = 5;
 
 
 const content = document.querySelector("body");
@@ -10,9 +11,9 @@ content.appendChild(heading);
 const scoreTracker = document.createElement("div");
 content.appendChild(scoreTracker);
 const trackHumanScore = document.createElement("h3");
-trackHumanScore.textContent = humanScore;
+trackHumanScore.textContent = `You: ${humanScore}`;
 const trackComputerScore = document.createElement("h3");
-trackComputerScore.textContent = computerScore;
+trackComputerScore.textContent = `CPU: ${computerScore}`;
 scoreTracker.appendChild(trackHumanScore);
 scoreTracker.appendChild(trackComputerScore);
 
@@ -28,21 +29,21 @@ buttons.appendChild(rockBtn);
 buttons.appendChild(paperBtn);
 buttons.appendChild(scissorsBtn);
 
-let computerChoice = Math.floor(Math.random() * 3) + 1;
-
-function getComputerChoice(computerChoice) {
-    if (computerChoice === 1) {
-        return "rock";
-    } else if (computerChoice === 2) {
-        return "paper";
-    } else if (computerChoice === 3) {
-        return "scissors";
-    }
-}
-
-const computerSelection = getComputerChoice(computerChoice);
-
 buttons.addEventListener("click", (e) => {
+    let computerSelection;
+    switch (Math.floor(Math.random() * 3) + 1) {
+        case 1:
+            computerSelection = "rock";
+            break;
+        case 2:
+            computerSelection = "paper";
+            break;
+        case 3:
+            computerSelection = "scissors";
+            break;
+        default:
+            console.log("ERROR: could not retrieve computer selection")
+    }
     let humanSelection;
     switch (e.target) {
         case rockBtn:
@@ -57,7 +58,14 @@ buttons.addEventListener("click", (e) => {
         default:
             return;
     }
-    playRound(computerSelection, humanSelection)
+    if (computerScore === 5 || humanScore === 5) {
+        declareWinner(computerScore, humanScore);
+        rockBtn.disabled = true;
+        paperBtn.disabled = true;
+        scissorsBtn.disabled = true;
+    } else {
+        playRound(computerSelection, humanSelection);
+    }
 })
 
 function playRound(computerSelection, humanSelection) {
@@ -82,19 +90,16 @@ function playRound(computerSelection, humanSelection) {
     } else if (computerSelection === humanSelection) {
         heading.textContent = `It's a draw! We both chose ${humanSelection}!`;
     } else {
-        console.log("ERROR");
+        console.log("ERROR: undefined sele");
     }
-    
-    trackHumanScore.textContent = humanScore;
-    trackComputerScore.textContent = computerScore;
+    trackHumanScore.textContent = `You: ${humanScore}`;
+    trackComputerScore.textContent = `CPU: ${computerScore}`;
 }
 
 function declareWinner(computerScore, humanScore) {
     if (computerScore < humanScore) {
-        console.log("You're the winner! Thanks for playing!");
+        heading.textContent = "You're the winner! Thanks for playing!";
     } else {
-        console.log("You lost! Better luck next time!");
+        heading.textContent = "You lost! Better luck next time!";
     }
 }
-console.log(declareWinner(computerScore, humanScore));
-console.log("Refresh the page to play again!");

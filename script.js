@@ -1,13 +1,21 @@
 let computerScore = 0;
 let humanScore = 0;
-let gamesPlayed = 0;
-let choices = ["rock", "paper", "scissors"]
 
 
 const content = document.querySelector("body");
 const heading = document.createElement("h1");
-heading.textContent = "Rock, paper, scissors, shoot!";
+heading.textContent = "Rock, paper, scissors, shoot!"
 content.appendChild(heading);
+
+const scoreTracker = document.createElement("div");
+content.appendChild(scoreTracker);
+const trackHumanScore = document.createElement("h3");
+trackHumanScore.textContent = humanScore;
+const trackComputerScore = document.createElement("h3");
+trackComputerScore.textContent = computerScore;
+scoreTracker.appendChild(trackHumanScore);
+scoreTracker.appendChild(trackComputerScore);
+
 const buttons = document.createElement("div");
 content.appendChild(buttons);
 const rockBtn = document.createElement("button");
@@ -24,11 +32,11 @@ let computerChoice = Math.floor(Math.random() * 3) + 1;
 
 function getComputerChoice(computerChoice) {
     if (computerChoice === 1) {
-        return choices[0];
+        return "rock";
     } else if (computerChoice === 2) {
-        return choices[1];
+        return "paper";
     } else if (computerChoice === 3) {
-        return choices[2];
+        return "scissors";
     }
 }
 
@@ -38,13 +46,13 @@ buttons.addEventListener("click", (e) => {
     let humanSelection;
     switch (e.target) {
         case rockBtn:
-            humanSelection = choices[0];
+            humanSelection = "rock";
             break;
         case paperBtn:
-            humanSelection = choices[1];
+            humanSelection = "paper";
             break;
         case scissorsBtn:
-            humanSelection = choices[2];
+            humanSelection = "scissors";
             break;
         default:
             return;
@@ -52,61 +60,40 @@ buttons.addEventListener("click", (e) => {
     playRound(computerSelection, humanSelection)
 })
 
-// Round
-
 function playRound(computerSelection, humanSelection) {
     if (computerSelection === "rock" && humanSelection === "paper") {
-        console.log("You win! Paper covers rock!");
+        heading.textContent = "You win! Paper covers rock!";
         humanScore++;
-        gamesPlayed++;
     } else if (computerSelection === "paper" && humanSelection === "scissors") {
-        console.log("You win! Scissors cuts paper!");
+        heading.textContent = "You win! Scissors cuts paper!";
         humanScore++;
-        gamesPlayed++;
     } else if (computerSelection === "scissors" && humanSelection === "rock") {
-        console.log("You win! Rock smashes scissors!");
+        heading.textContent = "You win! Rock smashes scissors!";
         humanScore++;
-        gamesPlayed++;
     } else if (computerSelection === "rock" && humanSelection === "scissors") {
-        console.log("You lose! Rock smashes scissors!");
+        heading.textContent = "You lose! Rock smashes scissors!";
         computerScore++;
-        gamesPlayed++;
     } else if (computerSelection === "paper" && humanSelection === "rock") {
-        console.log("You lose! Paper covers rock!");
+        heading.textContent = "You lose! Paper covers rock!";
         computerScore++;
-        gamesPlayed++;
     } else if (computerSelection === "scissors" && humanSelection === "paper") {
-        console.log("You lose! Scissors cuts paper!");
+        heading.textContent = "You lose! Scissors cuts paper!";
         computerScore++;
-        gamesPlayed++;
     } else if (computerSelection === humanSelection) {
-        console.log(`It's a draw! We both chose ${humanSelection}!`);
-        gamesPlayed++;
+        heading.textContent = `It's a draw! We both chose ${humanSelection}!`;
     } else {
         console.log("ERROR");
     }
+    
+    trackHumanScore.textContent = humanScore;
+    trackComputerScore.textContent = computerScore;
 }
-
-function checkScore(gamesPlayed) {
-    if (gamesPlayed < 1) {
-        // Intentionally blank
-    } else if (gamesPlayed === 1) {
-            console.log("Let's check the score! You've won " + humanScore + " out of " + gamesPlayed + " game. I've won " + computerScore + " out of " + gamesPlayed + " game. Let's keep going!");
-    } else if (gamesPlayed > 1 && gamesPlayed < 5) {
-            console.log("Let's check the score! You've won " + humanScore + " out of " + gamesPlayed + " games. I've won " + computerScore + " out of " + gamesPlayed + " games. Let's keep going!");
-    } else {
-        // Intentionally blank
-    }
-}
-console.log(checkScore(gamesPlayed));
 
 function declareWinner(computerScore, humanScore) {
     if (computerScore < humanScore) {
-        console.log("You're the winner! You won " + humanScore + " out of " + gamesPlayed + " games! I won " + computerScore + " out of " + gamesPlayed + " games. Thanks for playing!");
-    } else if (computerScore > humanScore) {
-        console.log("You lost! You won " + humanScore + " out of " + gamesPlayed + " games! I won " + computerScore + " out of " + gamesPlayed + " games. Better luck next time!");
+        console.log("You're the winner! Thanks for playing!");
     } else {
-        console.log("Wow! We both won " + humanScore + " out of " + gamesPlayed + " games!")
+        console.log("You lost! Better luck next time!");
     }
 }
 console.log(declareWinner(computerScore, humanScore));

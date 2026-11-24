@@ -1,6 +1,7 @@
 let computerScore = 0;
 let humanScore = 0;
-let winScore = 5;
+
+
 
 
 const content = document.querySelector("body");
@@ -29,6 +30,12 @@ buttons.appendChild(rockBtn);
 buttons.appendChild(paperBtn);
 buttons.appendChild(scissorsBtn);
 
+const resetButton = document.createElement("div");
+content.appendChild(resetButton);
+const resetBtn = document.createElement("button");
+resetBtn.textContent = "Reset Game";
+resetButton.appendChild(resetBtn);
+
 buttons.addEventListener("click", (e) => {
     let computerSelection;
     switch (Math.floor(Math.random() * 3) + 1) {
@@ -48,23 +55,18 @@ buttons.addEventListener("click", (e) => {
     switch (e.target) {
         case rockBtn:
             humanSelection = "rock";
+            (computerScore === 5 || humanScore === 5) ? declareWinner() : playRound(computerSelection, humanSelection);
             break;
         case paperBtn:
             humanSelection = "paper";
+            (computerScore === 5 || humanScore === 5) ? declareWinner() : playRound(computerSelection, humanSelection);
             break;
         case scissorsBtn:
             humanSelection = "scissors";
+            (computerScore === 5 || humanScore === 5) ? declareWinner() : playRound(computerSelection, humanSelection);
             break;
         default:
             return;
-    }
-    if (computerScore === 5 || humanScore === 5) {
-        declareWinner(computerScore, humanScore);
-        rockBtn.disabled = true;
-        paperBtn.disabled = true;
-        scissorsBtn.disabled = true;
-    } else {
-        playRound(computerSelection, humanSelection);
     }
 })
 
@@ -87,19 +89,32 @@ function playRound(computerSelection, humanSelection) {
     } else if (computerSelection === "scissors" && humanSelection === "paper") {
         heading.textContent = "You lose! Scissors cuts paper!";
         computerScore++;
-    } else if (computerSelection === humanSelection) {
-        heading.textContent = `It's a draw! We both chose ${humanSelection}!`;
     } else {
-        console.log("ERROR: undefined sele");
+        heading.textContent = `It's a draw! We both chose ${humanSelection}!`;
     }
     trackHumanScore.textContent = `You: ${humanScore}`;
     trackComputerScore.textContent = `CPU: ${computerScore}`;
 }
 
-function declareWinner(computerScore, humanScore) {
-    if (computerScore < humanScore) {
+function declareWinner() {
+    if (humanScore === 5) {
         heading.textContent = "You're the winner! Thanks for playing!";
     } else {
         heading.textContent = "You lost! Better luck next time!";
     }
+}
+
+resetButton.addEventListener("click", () => {
+    resetGame();
+});
+
+function resetGame(){
+    humanScore = 0;
+    computerScore = 0;
+    heading.textContent = "Rock, paper, scissors, shoot!"
+    trackHumanScore.textContent = `You: ${humanScore}`;
+    trackComputerScore.textContent = `CPU: ${computerScore}`;
+    document.querySelectorAll("button").forEach(button => {
+    button.disabled = false;
+  });
 }
